@@ -1,0 +1,28 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+}
+.login-container .login-form {
+  flex: 1;
+}
+.login-container .login-image {
+  flex: 1;
+}
+.login-container .login-form .slogan {
+  font-size: 90px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: -4px;
+  color: #ff5c87;
+  line-height: 85px;
+  margin-bottom: 0;
+  background-image: linear-gradient(
+    83.84deg,
+    #0088ff -6.87%,
+    #a033ff 26.54%,
+    #ff5c87 58.58%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  word-break: break-word;
+}
