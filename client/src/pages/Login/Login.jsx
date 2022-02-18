@@ -15,7 +15,11 @@ function Login() {
     console.log(`${email} + ${password}`)
   }
   const signupAccount = () => {
-    console.log(`${email} + ${password}`)
+    axios.post('http://localhost:8800/auth/register', {
+      email,
+      username: email.split('@')[0],
+      password,
+    }).then(res => {console.log(res)})
   }
   return (
     <>
@@ -33,7 +37,7 @@ function Login() {
             </FormControl>
             <div className="button-area">
               <Button className='login-btn' onClick={() => loginAccount()}>Log In</Button>
-              <Button className='login-btn'>Sign Up</Button>
+              <Button className='login-btn' onClick={() => signupAccount()}>Sign Up</Button>
               <div className="forgot-pw-btn">Forgotten your password?</div>
             </div>
             <Checkbox borderColor='#ccc' color='#595959'>Keep me signed in</Checkbox>
