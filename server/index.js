@@ -42,8 +42,8 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   }
 });
 
-app.use("/api", mainRouter);
+mainRouter(app);
 
-app.listen(8800, () => {
-  console.log("Server is running on port 8800");
+app.listen(process.env.PORT || 4000, () => {
+  console.log(`Server is running on port ${process.env.PORT || 4000}`);
 });

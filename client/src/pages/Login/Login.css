@@ -9,13 +9,13 @@
   flex: 1;
 }
 .login-container .login-form .slogan {
+  margin-top: 20px;
   font-size: 90px;
   font-weight: 600;
-  margin-bottom: 1rem;
   letter-spacing: -4px;
   color: #ff5c87;
-  line-height: 85px;
-  margin-bottom: 0;
+  line-height: 115px;
+  margin-bottom: 20px;
   background-image: linear-gradient(
     83.84deg,
     #0088ff -6.87%,
@@ -25,4 +25,48 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   word-break: break-word;
+}
+.login-container .login-form .small-title {
+  color: #595959;
+  margin: 0 0 38px;
+  font-size: 20px;
+  font-weight: 400;
+  word-break: keep-all;
+}
+.login-container .login-form input {
+  margin-bottom: 10px;
+  border: none;
+  background: rgba(0, 0, 0, 0.04);
+  width: 350px;
+}
+.login-container .login-form .button-area {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+.login-container .login-form .button-area .login-btn {
+  background-color: #0a7cff;
+  border-color: #0a7cff;
+  font-weight: 600;
+  line-height: 40px;
+  border: 1px solid #0084ff;
+  color: #fff;
+  height: 50px;
+  font-size: 17px;
+  border-radius: 24px;
+  margin: 20px 10px 20px 0;
+  padding: 2px 20px;
+  width: auto;
+}
+.login-container .login-form .button-area .login-btn:hover {
+  background-color: #4d4dff;
+  border-color: #0a7cff;
+  color: #fff;
+}
+.login-container .login-form .button-area .forgot-pw-btn {
+  color: #0a7cff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+  text-decoration: underline;
 }
