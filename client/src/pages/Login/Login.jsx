@@ -6,23 +6,35 @@ import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import loginImage from '../../assets/images/login-right-image.png'
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import './Login.css'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const toastPush = (message, options) => {
+    toast(message,options);
+  }
+
   const loginAccount = () => {
-    axios.post('http://localhost:8800/auth/login', {
+    if (!email || !password) toastPush('Please fill all fields', {type: 'error'})
+    else {
+      axios.post('http://localhost:8800/auth/login', {
       email,
       password,
     }).then(res => {console.log(res)})
+    }
   }
   const signupAccount = () => {
-    axios.post('http://localhost:8800/auth/register', {
+    if (!email || !password) toastPush('Please fill all fields', {type: 'error'})
+    else {
+      axios.post('http://localhost:8800/auth/register', {
       email,
       username: email.split('@')[0],
       password,
     }).then(res => {console.log(res)})
+    }
   }
   return (
     <>
@@ -50,6 +62,7 @@ function Login() {
           </div>
         </div>
       </Container>
+      <ToastContainer />
     </>
   )
 }
