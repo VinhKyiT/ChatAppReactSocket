@@ -12,7 +12,10 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const loginAccount = () => {
-    console.log(`${email} + ${password}`)
+    axios.post('http://localhost:8800/auth/login', {
+      email,
+      password,
+    }).then(res => {console.log(res)})
   }
   const signupAccount = () => {
     axios.post('http://localhost:8800/auth/register', {

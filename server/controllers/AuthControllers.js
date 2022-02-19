@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const authMiddleware = require("../middlewares/auth");
+const jwt = require("jsonwebtoken");
 
 module.exports.registerUser = async (req, res) => {
   try {
@@ -15,7 +17,7 @@ module.exports.registerUser = async (req, res) => {
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).jon(error);
+    res.status(500).json(error);
   }
 };
 
@@ -28,7 +30,24 @@ module.exports.loginUser = async (req, res) => {
       req.body.password,
       user.password
     );
-    if (!validPassword) res.status(401).json({ message: "Invalid password" });
+    if (!validPassword) {
+      res.status(401).json({ message: "Invalid password" });
+    }
+    const token = jwt.sign(
+      { user_id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2h",
+      }
+    );
+    res
+      .cookie("token", token, {
+        maxAge: 7200 * 1000, //2 hours
+        httpOnly: true,
+        secure: true,
+      })
+      .status(200)
+      .json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json(error);
   }
