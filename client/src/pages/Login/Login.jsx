@@ -6,12 +6,15 @@ import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import loginImage from '../../assets/images/login-right-image.png'
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import './Login.css'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate();
 
   const toastPush = (message, options) => {
     toast(message,options);
@@ -23,7 +26,12 @@ function Login() {
       axios.post('http://localhost:8800/auth/login', {
       email,
       password,
-    }).then(res => {console.log(res)})
+    }).then(({data}) => {
+      if(data.userId) {
+        localStorage.setItem('userId', data.userId)
+      }
+      navigate('/', {replace: true})
+      }).catch(err => {toastPush(err.response.data.message, {type: 'error'})})
     }
   }
   const signupAccount = () => {

@@ -8,7 +8,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const mainRouter = require("./routes/index");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
+const bodyParser = require("body-parser");
 
 const app = express();
 dotenv.config();
@@ -30,6 +30,8 @@ app.use(express.json());
 app.use(cookieParser("vinhkyit"));
 app.use(helmet());
 app.use(morgan("common"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

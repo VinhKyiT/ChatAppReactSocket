@@ -25,30 +25,31 @@ module.exports.loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) res.status(404).json({ message: "User not found" });
-
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword) {
-      res.status(401).json({ message: "Invalid password" });
-    }
-    const token = jwt.sign(
-      { user_id: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "2h",
+    else {
+      const validPassword = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
+      if (!validPassword) {
+        res.status(401).json({ message: "Invalid password" });
+      } else {
+        const token = jwt.sign(
+          { user_id: user._id, email: user.email },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "2h",
+          }
+        );
+        res
+          .cookie("token", token, {
+            maxAge: 7200 * 1000, //2 hours
+            httpOnly: true,
+            secure: true,
+          })
+          .status(200)
+          .json({ message: "Login successful", userId: user._id, token });
       }
-    );
-    res
-      .cookie("token", token, {
-        maxAge: 7200 * 1000, //2 hours
-        httpOnly: true,
-        secure: true,
-      })
-      .status(200)
-      .json({ message: "Login successful" });
-    console.log(req.signedCookies);
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
